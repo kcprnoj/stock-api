@@ -1,0 +1,482 @@
+{
+      "Investing.com United States 30": {
+            "ID": "1084862",
+            "url": "/indices/investing.com-united-states-30",
+            "currency": "USD"
+      },
+      "Dow Jones Industrial Average": {
+            "ID": "169",
+            "url": "/indices/us-30",
+            "currency": "USD"
+      },
+      "Nasdaq 100": {
+            "ID": "20",
+            "url": "/indices/nq-100",
+            "currency": "USD"
+      },
+      "NASDAQ Composite": {
+            "ID": "14958",
+            "url": "/indices/nasdaq-composite",
+            "currency": "USD"
+      },
+      "S&P 500": {
+            "ID": "166",
+            "url": "/indices/us-spx-500",
+            "currency": "USD"
+      },
+      "S&P/TSX Composite": {
+            "ID": "24441",
+            "url": "/indices/s-p-tsx-composite",
+            "currency": "CAD"
+      },
+      "Bovespa": {
+            "ID": "17920",
+            "url": "/indices/bovespa",
+            "currency": "BRL"
+      },
+      "S&P/BMV IPC": {
+            "ID": "27254",
+            "url": "/indices/ipc",
+            "currency": "MXN"
+      },
+      "S&P Merval": {
+            "ID": "13376",
+            "url": "/indices/merv",
+            "currency": "ARS"
+      },
+      "COLCAP": {
+            "ID": "49642",
+            "url": "/indices/colcap",
+            "currency": "COP"
+      },
+      "S&P CLX IPSA": {
+            "ID": "14767",
+            "url": "/indices/ipsa",
+            "currency": "CLP"
+      },
+      "S&P Lima General": {
+            "ID": "49680",
+            "url": "/indices/lima-stock-exchange-general",
+            "currency": "PEN"
+      },
+      "Bursatil": {
+            "ID": "49748",
+            "url": "/indices/bursatil",
+            "currency": "VES"
+      },
+      "DAX": {
+            "ID": "172",
+            "url": "/indices/germany-30",
+            "currency": "EUR"
+      },
+      "Euro Stoxx 50": {
+            "ID": "175",
+            "url": "/indices/eu-stoxx50",
+            "currency": "EUR"
+      },
+      "FTSE 100": {
+            "ID": "27",
+            "url": "/indices/uk-100",
+            "currency": "GBP"
+      },
+      "CAC 40": {
+            "ID": "167",
+            "url": "/indices/france-40",
+            "currency": "EUR"
+      },
+      "IBEX 35": {
+            "ID": "174",
+            "url": "/indices/spain-35",
+            "currency": "EUR"
+      },
+      "SMI": {
+            "ID": "176",
+            "url": "/indices/switzerland-20",
+            "currency": "CHF"
+      },
+      "AEX": {
+            "ID": "168",
+            "url": "/indices/netherlands-25",
+            "currency": "EUR"
+      },
+      "ATX": {
+            "ID": "1016254",
+            "url": "/indices/atx",
+            "currency": "EUR"
+      },
+      "OMX Stockholm 30": {
+            "ID": "25685",
+            "url": "/indices/omx-stockholm-30",
+            "currency": "SEK"
+      },
+      "OMX Copenhagen 20": {
+            "ID": "25760",
+            "url": "/indices/omx-copenhagen-20",
+            "currency": "DKK"
+      },
+      "OMX Helsinki 25": {
+            "ID": "25823",
+            "url": "/indices/omx-helsinki-25",
+            "currency": "EUR"
+      },
+      "ICEX Main": {
+            "ID": "25887",
+            "url": "/indices/omx-iceland-all-share",
+            "currency": "ISK"
+      },
+      "OSE Benchmark": {
+            "ID": "14603",
+            "url": "/indices/ose-benchamrk",
+            "currency": "NOK"
+      },
+      "Oslo OBX": {
+            "ID": "44400",
+            "url": "/indices/oslo-obx",
+            "currency": "NOK"
+      },
+      "BEL 20": {
+            "ID": "14601",
+            "url": "/indices/bel-20",
+            "currency": "EUR"
+      },
+      "PSI 20": {
+            "ID": "14600",
+            "url": "/indices/psi-20",
+            "currency": "EUR"
+      },
+      "WIG20": {
+            "ID": "14602",
+            "url": "/indices/wig-20",
+            "currency": "PLN"
+      },
+      "WIG30": {
+            "ID": "41044",
+            "url": "/indices/wig30",
+            "currency": "PLN"
+      },
+      "Budapest SE": {
+            "ID": "38014",
+            "url": "/indices/hungary-stock-market",
+            "currency": "HUF"
+      },
+      "CROBEX": {
+            "ID": "14774",
+            "url": "/indices/crobex",
+            "currency": "HRK"
+      },
+      "Cyprus Main Market": {
+            "ID": "49753",
+            "url": "/indices/cyprus-main-market",
+            "currency": "EUR"
+      },
+      "PX": {
+            "ID": "50647",
+            "url": "/indices/px",
+            "currency": "CZK"
+      },
+      "Athens General Composite": {
+            "ID": "961613",
+            "url": "/indices/athens-general",
+            "currency": "EUR"
+      },
+      "BSE SOFIX": {
+            "ID": "49629",
+            "url": "/indices/bse-sofia",
+            "currency": "BGN"
+      },
+      "BET": {
+            "ID": "14770",
+            "url": "/indices/bet",
+            "currency": "RON"
+      },
+      "ISEQ Overall": {
+            "ID": "49648",
+            "url": "/indices/iseq-overall",
+            "currency": "EUR"
+      },
+      "SAX": {
+            "ID": "41155",
+            "url": "/indices/sax",
+            "currency": "EUR"
+      },
+      "Blue-Chip SBITOP": {
+            "ID": "29149",
+            "url": "/indices/blue-chip-sbitop",
+            "currency": "EUR"
+      },
+      "Belex 15": {
+            "ID": "945510",
+            "url": "/indices/belex-15",
+            "currency": "RSD"
+      },
+      "BIRS": {
+            "ID": "945507",
+            "url": "/indices/birs",
+            "currency": "BAM"
+      },
+      "Sarajevo 10": {
+            "ID": "945505",
+            "url": "/indices/sarajevo-10",
+            "currency": "BAM"
+      },
+      "MOEX Russia": {
+            "ID": "13666",
+            "url": "/indices/mcx",
+            "currency": "RUB"
+      },
+      "RTSI": {
+            "ID": "13665",
+            "url": "/indices/rtsi",
+            "currency": "USD"
+      },
+      "PFTS": {
+            "ID": "29191",
+            "url": "/indices/pfts",
+            "currency": "UAH"
+      },
+      "BIST 100": {
+            "ID": "19155",
+            "url": "/indices/ise-100",
+            "currency": "TRY"
+      },
+      "TA 35": {
+            "ID": "10529",
+            "url": "/indices/ta25",
+            "currency": "ILS"
+      },
+      "Nikkei 225": {
+            "ID": "178",
+            "url": "/indices/japan-ni225",
+            "currency": "JPY"
+      },
+      "BSE Sensex 30": {
+            "ID": "39929",
+            "url": "/indices/sensex",
+            "currency": "INR"
+      },
+      "Nifty 50": {
+            "ID": "17940",
+            "url": "/indices/s-p-cnx-nifty",
+            "currency": "INR"
+      },
+      "Hang Seng": {
+            "ID": "179",
+            "url": "/indices/hang-sen-40",
+            "currency": "HKD"
+      },
+      "Shanghai Composite": {
+            "ID": "40820",
+            "url": "/indices/shanghai-composite",
+            "currency": "CNY"
+      },
+      "SZSE Component": {
+            "ID": "942630",
+            "url": "/indices/szse-component",
+            "currency": "CNY"
+      },
+      "S&P/ASX 200": {
+            "ID": "171",
+            "url": "/indices/aus-200",
+            "currency": "AUD"
+      },
+      "NZX 50": {
+            "ID": "41146",
+            "url": "/indices/nzx-50",
+            "currency": "NZD"
+      },
+      "NZX MidCap": {
+            "ID": "41148",
+            "url": "/indices/nzx-midcap",
+            "currency": "NZD"
+      },
+      "KOSPI": {
+            "ID": "37426",
+            "url": "/indices/kospi",
+            "currency": "KRW"
+      },
+      "KOSPI 50": {
+            "ID": "49661",
+            "url": "/indices/kospi-50",
+            "currency": "KRW"
+      },
+      "SET Index": {
+            "ID": "38015",
+            "url": "/indices/thailand-set",
+            "currency": "THB"
+      },
+      "CSE All-Share": {
+            "ID": "29151",
+            "url": "/indices/cse-all-share",
+            "currency": "LKR"
+      },
+      "Taiwan Weighted": {
+            "ID": "38017",
+            "url": "/indices/taiwan-weighted",
+            "currency": "TWD"
+      },
+      "Tadawul All Share": {
+            "ID": "11319",
+            "url": "/indices/tasi",
+            "currency": "SAR"
+      },
+      "PSEi Composite": {
+            "ID": "49692",
+            "url": "/indices/psei-composite",
+            "currency": "PHP"
+      },
+      "QE General": {
+            "ID": "13185",
+            "url": "/indices/qsi",
+            "currency": "QAR"
+      },
+      "Al-Quds": {
+            "ID": "13009",
+            "url": "/indices/ple",
+            "currency": "JOD"
+      },
+      "Karachi 100": {
+            "ID": "49677",
+            "url": "/indices/karachi-100",
+            "currency": "PKR"
+      },
+      "MSM 30": {
+            "ID": "13384",
+            "url": "/indices/msi",
+            "currency": "OMR"
+      },
+      "Bahrain All Share": {
+            "ID": "13518",
+            "url": "/indices/bax",
+            "currency": "BHD"
+      },
+      "Jakarta Stock Exchange Composite Index": {
+            "ID": "29049",
+            "url": "/indices/idx-composite",
+            "currency": "IDR"
+      },
+      "HNX 30": {
+            "ID": "995072",
+            "url": "/indices/hnx-30",
+            "currency": "VND"
+      },
+      "VN 30": {
+            "ID": "41064",
+            "url": "/indices/vn-30",
+            "currency": "VND"
+      },
+      "VN Index": {
+            "ID": "41063",
+            "url": "/indices/vn",
+            "currency": "VND"
+      },
+      "Amman SE General": {
+            "ID": "12259",
+            "url": "/indices/amgnrlx",
+            "currency": "JOD"
+      },
+      "ADX General": {
+            "ID": "941336",
+            "url": "/indices/adx-general",
+            "currency": "AED"
+      },
+      "DFM General": {
+            "ID": "12522",
+            "url": "/indices/dfmgi",
+            "currency": "AED"
+      },
+      "BLOM Stock": {
+            "ID": "14523",
+            "url": "/indices/blom-stk-idx",
+            "currency": "USD"
+      },
+      "FTSE Malaysia KLCI": {
+            "ID": "29078",
+            "url": "/indices/ftse-malaysia-klci",
+            "currency": "MYR"
+      },
+      "EGX 30": {
+            "ID": "12860",
+            "url": "/indices/egx30",
+            "currency": "EGP"
+      },
+      "EGX 70 EWI ": {
+            "ID": "1159121",
+            "url": "/indices/egx-70",
+            "currency": "EGP"
+      },
+      "South Africa Top 40": {
+            "ID": "41043",
+            "url": "/indices/ftse-jse-top-40",
+            "currency": "ZAR"
+      },
+      "Tunindex": {
+            "ID": "18823",
+            "url": "/indices/tunindex",
+            "currency": "TND"
+      },
+      "Tunindex20": {
+            "ID": "948432",
+            "url": "/indices/tunindex20",
+            "currency": "TND"
+      },
+      "Moroccan All Shares": {
+            "ID": "13228",
+            "url": "/indices/masi",
+            "currency": "MAD"
+      },
+      "Semdex": {
+            "ID": "41159",
+            "url": "/indices/semdex",
+            "currency": "MUR"
+      },
+      "BSE Domestic Company": {
+            "ID": "41115",
+            "url": "/indices/bse-domestic-company",
+            "currency": "BWP"
+      },
+      "Tanzania All Share": {
+            "ID": "41164",
+            "url": "/indices/tanzania-all-share",
+            "currency": "TZS"
+      },
+      "Uganda All Share": {
+            "ID": "41111",
+            "url": "/indices/uganda-all-share",
+            "currency": "UGX"
+      },
+      "NSE 30": {
+            "ID": "101797",
+            "url": "/indices/nse-30",
+            "currency": "NGN"
+      },
+      "BRVM 10": {
+            "ID": "980229",
+            "url": "/indices/brvm-10",
+            "currency": "XOF"
+      },
+      "ISX Main 60": {
+            "ID": "993158",
+            "url": "/indices/isx-main-60",
+            "currency": "IQD"
+      },
+      "Dhaka Stock Exchange 30": {
+            "ID": "989440",
+            "url": "/indices/dhaka-stock-exchange-30",
+            "currency": "BDT"
+      },
+      "KASE": {
+            "ID": "993152",
+            "url": "/indices/kase",
+            "currency": "KZT"
+      },
+      "MNSE 10": {
+            "ID": "1006456",
+            "url": "/indices/mnse-10",
+            "currency": "EUR"
+      },
+      "MNE Top 20": {
+            "ID": "1006455",
+            "url": "/indices/mne-top-20",
+            "currency": "MNT"
+      }
+}
