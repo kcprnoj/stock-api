@@ -1,7 +1,6 @@
-from utils import get_random_agent
-from Scraper import Scraper
+from .Scraper import Scraper
 from lxml import html
-from datetime import datetime
+from datetime import datetime, timedelta
 from json import loads
 
 class BankierScraper(Scraper):
@@ -36,16 +35,18 @@ class BankierScraper(Scraper):
         result = list()
         for row in response.xpath('//table//tbody//tr'):
             try:
+                strdate = row[9].xpath('@data-sort-value')[0]
+                date = datetime.strptime(strdate, "%Y-%m-%d %H:%M") - timedelta(hours=1)
                 result.append({
                     'Name': row[0][0].text,
                     'Full Name': row[0][0].xpath('@title')[0],
                     'Last': float(row[1].text.replace(',','.')),
-                    'Max': float(row[7].text.replace(',','.')),
-                    'Min': float(row[8].text.replace(',','.')),
+                    'High': float(row[7].text.replace(',','.')),
+                    'Low': float(row[8].text.replace(',','.')),
                     'Change.': float(row[2].text.replace(',', '.')),
                     'Change %': float(row[3].text.replace(',', '.').replace('%', '')),
                     'Volume': int(float(row[5].text.replace('\xa0', ''))/float(row[1].text.replace(',','.'))),
-                    'Date': row[9].xpath('@data-sort-value')[0],
+                    'Date': date.strftime("%m/%d/%Y %H:%M:%S")
                 })
             except:
                 pass
@@ -62,12 +63,13 @@ class BankierScraper(Scraper):
         root = html.fromstring(response.text)
         reference = float(root.xpath('//*[@id="referencePrice"]//@data-value')[0])
         date = datetime.fromtimestamp(int(root.xpath('//div[contains(@id,"last-trade")]//@data-last-epoch')[0])/1000)
+        date -=  timedelta(hours=1)
 
         result = dict()
         result['Last'] = float(root.xpath('//div[contains(@id,"last-trade")]//@data-last')[0])
         result['Open'] = float(root.xpath('//div[contains(@id,"last-trade")]//@data-open')[0])
-        result['Min'] = float(root.xpath('//div[contains(@id,"last-trade")]//@data-low')[0])
-        result['Max'] = float(root.xpath('//div[contains(@id,"last-trade")]//@data-high')[0])
+        result['Low'] = float(root.xpath('//div[contains(@id,"last-trade")]//@data-low')[0])
+        result['High'] = float(root.xpath('//div[contains(@id,"last-trade")]//@data-high')[0])
         result['Volume'] = float(root.xpath('//div[contains(@id,"last-trade")]//@data-volume')[0])
         result['Change'] = round(result['Last'] - result['Open'], 4)
         result['Change %'] = round((result['Last'] - reference)/reference, 4) * 100
@@ -102,8 +104,10 @@ class BankierScraper(Scraper):
 
         result = []
         for i in range(len(data['main'])):
+            date = datetime.fromtimestamp(data['main'][i][0]/1000)
+            date -=  timedelta(hours=1)
             result.append({
-                'Date' : datetime.fromtimestamp(data['main'][i][0]/1000).strftime("%m/%d/%Y %H:%M:%S"),
+                'Date' : date.strftime("%m/%d/%Y %H:%M:%S"),
                 'Close' : data['main'][i][4],
                 'Open' : data['main'][i][1],
                 'High' : data['main'][i][2],
@@ -112,7 +116,3 @@ class BankierScraper(Scraper):
             })
 
         return result
-
-
-scr = BankierScraper()
-print(scr.get_historical('WIG30', start='1/1/2020'))

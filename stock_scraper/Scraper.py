@@ -1,8 +1,6 @@
 from requests import get, post, Response
 from abc import abstractmethod
-
-from requests.api import head
-from utils import get_random_agent
+from .utils import get_random_agent
 
 class Scraper:
     def __init__(self):
@@ -37,6 +35,7 @@ class Scraper:
         if url.split('?')[0] in self.blacklist:
             resp = Response()
             resp.status_code = 403
+            print(403)
             return resp
         else:
             return get(url, headers=headers)
