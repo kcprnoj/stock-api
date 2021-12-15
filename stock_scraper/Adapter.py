@@ -2,7 +2,7 @@ from .BankierScraper import BankierScraper
 from .InvestingScraper import InvestingScraper
 from .Scraper import Scraper
 
-class Controller:
+class Adapter:
 
     def __init__(self) -> None:
         self.scrapers = [BankierScraper(), InvestingScraper()]
