@@ -1,7 +1,7 @@
 import fastapi
 from stock_scraper import Adapter
 
-app = fastapi.FastAPI("StockAPI")
+app = fastapi.FastAPI(title = "StockAPI")
 adapter = Adapter()
 
 @app.get("/indexes")
