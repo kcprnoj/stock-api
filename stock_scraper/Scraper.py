@@ -1,8 +1,8 @@
 from requests import get, post, Response
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from .utils import get_random_agent
 
-class Scraper:
+class Scraper(ABC):
     def __init__(self):
         self.indexes = list()
         self.companies = list()
