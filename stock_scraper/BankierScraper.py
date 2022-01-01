@@ -43,8 +43,8 @@ class BankierScraper(Scraper):
                     'Last': float(row[1].text.replace(',','.')),
                     'High': float(row[7].text.replace(',','.')),
                     'Low': float(row[8].text.replace(',','.')),
-                    'Change.': float(row[2].text.replace(',', '.')),
-                    'Change %': float(row[3].text.replace(',', '.').replace('%', '')),
+                    'Change.': round(float(row[2].text.replace(',', '.'))),
+                    'Change %': round(float(row[3].text.replace(',', '.').replace('%', ''))),
                     'Volume': int(float(row[5].text.replace('\xa0', ''))/float(row[1].text.replace(',','.'))),
                     'Date': date.strftime("%m/%d/%Y %H:%M:%S")
                 })
@@ -71,8 +71,8 @@ class BankierScraper(Scraper):
         result['Low'] = float(root.xpath('//div[contains(@id,"last-trade")]//@data-low')[0])
         result['High'] = float(root.xpath('//div[contains(@id,"last-trade")]//@data-high')[0])
         result['Volume'] = float(root.xpath('//div[contains(@id,"last-trade")]//@data-volume')[0])
-        result['Change'] = round(result['Last'] - result['Open'], 4)
-        result['Change %'] = round((result['Last'] - reference)/reference, 4) * 100
+        result['Change'] = round(result['Last'] - result['Open'], 2)
+        result['Change %'] = round((result['Last'] - reference)/reference * 100, 2)
         result['Currency'] = 'PLN'
         result['Date'] = date.strftime("%m/%d/%Y %H:%M:%S")
         return result
@@ -99,20 +99,42 @@ class BankierScraper(Scraper):
             date_to = int(datetime.strptime(current_date, '%d/%m/%Y').timestamp()*1000)
         
         url += f'&date_from={date_from}&date_to={date_to}'
+        return self.get_data(url)
+
+    def get_last(self, name: str, type: str = None) -> list:
+        if type == None:
+            type = 'ohlc'
+        url = self.main_url + f'/new-charts/get-data?symbol={name}&intraday=true&type={type}'
+        return self.get_data(url, type = type)
+
+    def get_data(self, url: str, type: str = None) -> list:
         response = self.get(url)
+        if response.status_code != 200:
+            return None
         data = loads(response.text)
 
         result = []
         for i in range(len(data['main'])):
             date = datetime.fromtimestamp(data['main'][i][0]/1000)
             date -=  timedelta(hours=1)
-            result.append({
-                'Date' : date.strftime("%m/%d/%Y %H:%M:%S"),
-                'Close' : data['main'][i][4],
-                'Open' : data['main'][i][1],
-                'High' : data['main'][i][2],
-                'Low' : data['main'][i][3],
-                'Volume' : data['volume'][i][1]
-            })
-
+            volume = 0
+            try:
+                volume = data['volume'][i][1]
+            except:
+                pass
+            if type == None or type == 'ohlc':
+                result.append({
+                    'Date' : date.strftime("%m/%d/%Y %H:%M:%S"),
+                    'Close' : data['main'][i][4],
+                    'Open' : data['main'][i][1],
+                    'High' : data['main'][i][2],
+                    'Low' : data['main'][i][3],
+                    'Volume' : volume
+                })
+            elif type == 'area':
+                result.append({
+                    'Date' : date.strftime("%m/%d/%Y %H:%M:%S"),
+                    'Last' : data['main'][i][1],
+                    'Volume' : volume
+                })
         return result

@@ -4,7 +4,7 @@ from .Scraper import Scraper
 from os.path import exists, abspath
 from os import getcwd
 from lxml import html
-from json import load, dump
+from json import load, dump, loads
 from datetime import datetime
 from pandas import to_datetime
 
@@ -158,7 +158,6 @@ class InvestingScraper(Scraper):
         elif name in self.indexes_id:
             equity = self.indexes_id[name]
         else:
-            print("No equity like that")
             return None
 
         url = self.main_url + "/instruments/HistoricalDataAjax"
@@ -169,12 +168,18 @@ class InvestingScraper(Scraper):
         headers["Accept-Encoding"] = "gzip, deflate"
 
         if start == None:
-            startDate = "1/1/1970"
+            start = "1/1/1970"
+        else:
+            date = datetime.strptime(start, '%d/%m/%Y')
+            start = f'{date.month}/{date.day}/{date.year}'
         if end == None:
             current_date = datetime.now()
-            endDate = f"{current_date.day}/{current_date.month}/{current_date.year}"
+            end = f"{current_date.month}/{current_date.day}/{current_date.year}"
+        else:
+            date = datetime.strptime(end, '%d/%m/%Y')
+            end = f'{date.month}/{date.day}/{date.year}'
 
-        data = f"curr_id={equity['ID']}&st_date={startDate}&end_date={endDate}&sort_col=date&sort_ord=DESC&action=historical_data&header"
+        data = f"curr_id={equity['ID']}&st_date={start}&end_date={end}&sort_col=date&sort_ord=DESC&action=historical_data&header"
         response = self.post(url, headers=headers, data=data)
 
         if response.status_code != 200:
@@ -191,11 +196,15 @@ class InvestingScraper(Scraper):
                     'Open': float(data[2].replace(',', '')),
                     'High': float(data[3].replace(',', '')),
                     'Low': float(data[4].replace(',', '')),
-                    'Volume': int(data[5].replace('.','').replace('K', '0').replace('M', '0000').replace('-', '0')),
+                    'Volume': int(data[5].replace('.','').replace('B', '000000000').replace('K', '0').replace('M', '0000').replace('-', '0')),
                 })
             except:
                 continue
-        result.pop()
+
+        try:
+            result.pop()
+        except:
+            return None
         return result
 
     def search(self, keyword: str) -> list:
@@ -208,3 +217,39 @@ class InvestingScraper(Scraper):
         for i in range(len(results)):
             retval.append([results[i], desc[i*3 + 1], desc[i*3 + 2]])
         return retval
+
+    def get_last(self, name: str, type: str = None) -> list:
+        equity = None
+        if name in self.companies_id:
+            equity = self.companies_id[name]
+        elif name in self.indexes_id:
+            equity = self.indexes_id[name]
+        else:
+            return None
+
+        url = f'https://api.investing.com/api/financialdata/{equity["ID"]}/historical/chart/?period=P1W&interval=PT5M&pointscount=120'
+        response = self.get(url)
+
+        if response.status_code != 200:
+            return None
+
+        data = loads(response.text)
+        result = []
+        for row in data['data']:
+            date = datetime.fromtimestamp(row[0]/1000)
+            if type == None or type == 'ohlc':
+                result.append({
+                    'Date': date.strftime("%m/%d/%Y %H:%M:%S"),
+                    'Open': row[1],
+                    'High': row[2],
+                    'Low': row[3],
+                    'Close': row[4],
+                    'Volume': row[5]
+                })
+            elif type == 'area':
+                result.append({
+                    'Date': date.strftime("%m/%d/%Y %H:%M:%S"),
+                    'Last': row[4],
+                    'Volume': row[5]
+                })
+        return result

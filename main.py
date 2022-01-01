@@ -16,22 +16,48 @@ async def get_companies():
 async def get_index(name: str = None):
     if name == None:
         return fastapi.Response(status_code=404)
-    return adapter.get_index(name)
+    ret = adapter.get_index(name)
+    if ret == None:
+        return fastapi.Response(status_code=404)
+    else:
+        return ret
 
 @app.get("/index_comapnies")
-async def get_index(name: str = None):
+async def get_index_companies(name: str = None):
     if name == None:
         return fastapi.Response(status_code=404)
-    return adapter.get_index_companies(name)
+    ret = adapter.get_index_companies(name)
+    if ret == None:
+        return fastapi.Response(status_code=404)
+    else:
+        return ret
 
 @app.get("/company")
 async def get_company(name: str = None):
     if name == None:
         return fastapi.Response(status_code=404)
-    return adapter.get_company(name)
+    ret = adapter.get_company(name)
+    if ret == None or ret == []:
+        return fastapi.Response(status_code=404)
+    else:
+        return ret
 
 @app.get("/historical_data")
-async def get_company(name: str = None, start: str = None, end: str = None):
+async def get_historical_data(name: str = None, start: str = None, end: str = None):
     if name == None:
         return fastapi.Response(status_code=404)
-    return adapter.get_historical(name, start = start, end = end)
+    ret = adapter.get_historical(name, start = start, end = end)
+    if ret == None or ret == []:
+        return fastapi.Response(status_code=404)
+    else:
+        return ret
+
+@app.get("/last_data")
+async def get_last_data(name: str = None, type: str = None):
+    if name == None:
+        return fastapi.Response(status_code=404)
+    ret = adapter.get_last(name, type = type)
+    if ret == None or ret == []:
+        return fastapi.Response(status_code=404)
+    else:
+        return ret

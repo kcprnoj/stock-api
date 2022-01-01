@@ -23,7 +23,6 @@ class Adapter:
 
     def get_company(self, name: str) -> dict:
         scraper = self.get_scraper_by_company(name)
-        print (scraper)
         if scraper != None:
             return scraper.get_company(name)
         else:
@@ -33,6 +32,13 @@ class Adapter:
         scraper = self.get_scraper_by_company(name)
         if scraper != None:
             return scraper.get_historical(name, start = start, end = end)
+        else:
+            return None
+
+    def get_last(self, name: str, type: str = None) -> list:
+        scraper = self.get_scraper_by_company(name)
+        if scraper != None:
+            return scraper.get_last(name, type=type)
         else:
             return None
 

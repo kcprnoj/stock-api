@@ -73,3 +73,7 @@ class Scraper(ABC):
     @abstractmethod
     def get_historical(self, name: str, start: str = None, end: str = None) -> list:
         pass
+
+    @abstractmethod
+    def get_last(self, name: str, type: str = None) -> list:
+        pass
