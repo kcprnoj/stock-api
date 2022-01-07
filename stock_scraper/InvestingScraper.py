@@ -148,7 +148,7 @@ class InvestingScraper(Scraper):
             'Change %': change_percent,
             'Volume': volume,
             'Currency': currency,
-            'Date': date.strftime("%m/%d/%Y %H:%M:%S")
+            'Date': date.strftime("%d/%m/%Y %H:%M:%S")
         }
 
     def get_historical(self, name: str, start: str = None, end: str = None) -> list:
@@ -191,7 +191,7 @@ class InvestingScraper(Scraper):
             data = row.xpath('td//text()')
             try:
                 result.append({
-                    'Date': str(to_datetime(data[0])),
+                    'Date': str(to_datetime(data[0]).strftime("%d/%m/%Y %H:%M:%S")),
                     'Close': float(data[1].replace(',', '')),
                     'Open': float(data[2].replace(',', '')),
                     'High': float(data[3].replace(',', '')),
@@ -239,7 +239,7 @@ class InvestingScraper(Scraper):
             date = datetime.fromtimestamp(row[0]/1000)
             if type == None or type == 'ohlc':
                 result.append({
-                    'Date': date.strftime("%m/%d/%Y %H:%M:%S"),
+                    'Date': date.strftime("%d/%m/%Y %H:%M:%S"),
                     'Open': row[1],
                     'High': row[2],
                     'Low': row[3],
@@ -248,7 +248,7 @@ class InvestingScraper(Scraper):
                 })
             elif type == 'area':
                 result.append({
-                    'Date': date.strftime("%m/%d/%Y %H:%M:%S"),
+                    'Date': date.strftime("%d/%m//%Y %H:%M:%S"),
                     'Last': row[4],
                     'Volume': row[5]
                 })

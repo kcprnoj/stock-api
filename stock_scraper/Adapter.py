@@ -1,6 +1,8 @@
 from .BankierScraper import BankierScraper
 from .InvestingScraper import InvestingScraper
 from .Scraper import Scraper
+import pandas as pd
+from json import dumps
 
 class Adapter:
 
@@ -28,12 +30,16 @@ class Adapter:
         else:
             return None
 
-    def get_historical(self, name: str, start: str = None, end: str = None) -> list:
+    def get_historical(self, name: str, start: str = None, end: str = None, interval: str = None) -> list:
         scraper = self.get_scraper_by_company(name)
         if scraper != None:
-            return scraper.get_historical(name, start = start, end = end)
+            data = scraper.get_historical(name, start = start, end = end)
         else:
             return None
+        if interval != None:
+            data = self.change_interval(data, interval)
+
+        return data
 
     def get_last(self, name: str, type: str = None) -> list:
         scraper = self.get_scraper_by_company(name)
@@ -65,3 +71,20 @@ class Adapter:
             if company in scraper.get_companies():
                 return scraper
         return None
+
+    def change_interval(self, data: list, interval: str):
+        ohlc_dict = {                                                                                                             
+            'Open': 'first',                                                                                                    
+            'High': 'max',                                                                                                       
+            'Low': 'min',                                                                                                        
+            'Close': 'last',                                                                                                    
+            'Volume': 'sum',
+        }
+        df = pd.DataFrame(data)
+        format = '%d/%m/%Y %H:%M:%S'
+        df['Date'] = pd.to_datetime(df['Date'], format=format)
+        df = df.set_index('Date')
+        df = df.resample(interval, closed='left', label='left').apply(ohlc_dict)
+        df['Date'] = df.index.strftime(format)
+        df = df.dropna()
+        return df.to_dict('records')

@@ -36,20 +36,20 @@ class BankierScraper(Scraper):
         for row in response.xpath('//table//tbody//tr'):
             try:
                 strdate = row[9].xpath('@data-sort-value')[0]
-                date = datetime.strptime(strdate, "%Y-%m-%d %H:%M") - timedelta(hours=1)
-                result.append({
-                    'Name': row[0][0].text,
-                    'Full Name': row[0][0].xpath('@title')[0],
-                    'Last': float(row[1].text.replace(',','.')),
-                    'High': float(row[7].text.replace(',','.')),
-                    'Low': float(row[8].text.replace(',','.')),
-                    'Change.': round(float(row[2].text.replace(',', '.'))),
-                    'Change %': round(float(row[3].text.replace(',', '.').replace('%', ''))),
-                    'Volume': int(float(row[5].text.replace('\xa0', ''))/float(row[1].text.replace(',','.'))),
-                    'Date': date.strftime("%m/%d/%Y %H:%M:%S")
-                })
             except:
-                pass
+                continue
+            date = datetime.strptime(strdate, "%Y-%m-%d %H:%M") - timedelta(hours=1)
+            result.append({
+                'Name': row[0][0].text,
+                'Full Name': row[0][0].xpath('@title')[0],
+                'Last': float(row[1].text.replace(',','.').replace(u'\xa0', u'')),
+                'High': float(row[7].text.replace(',','.').replace(u'\xa0', u'')),
+                'Low': float(row[8].text.replace(',','.').replace(u'\xa0', u'')),
+                'Change.': round(float(row[2].text.replace(',', '.'))),
+                'Change %': round(float(row[3].text.replace(',', '.').replace('%', ''))),
+                'Volume': int(float(row[5].text.replace(',','.').replace(u'\xa0', u''))/float(row[1].text.replace(',','.').replace(u'\xa0', u''))),
+                'Date': date.strftime("%d/%m/%Y %H:%M:%S")
+            })
         return result
 
     def get_company(self, name: str) -> dict:
@@ -61,6 +61,7 @@ class BankierScraper(Scraper):
         if response.status_code != 200:
             return
         root = html.fromstring(response.text)
+        print(url)
         reference = float(root.xpath('//*[@id="referencePrice"]//@data-value')[0])
         date = datetime.fromtimestamp(int(root.xpath('//div[contains(@id,"last-trade")]//@data-last-epoch')[0])/1000)
         date -=  timedelta(hours=1)
@@ -74,12 +75,11 @@ class BankierScraper(Scraper):
         result['Change'] = round(result['Last'] - result['Open'], 2)
         result['Change %'] = round((result['Last'] - reference)/reference * 100, 2)
         result['Currency'] = 'PLN'
-        result['Date'] = date.strftime("%m/%d/%Y %H:%M:%S")
+        result['Date'] = date.strftime("%d/%m/%Y %H:%M:%S")
         return result
 
 
     def get_historical(self, name: str, start: str = None, end: str = None) -> list:
-        
         url = self.main_url + f'/new-charts/get-data?&symbol={name}&intraday=false&type=candlestick'
 
         date_to = 0
@@ -124,7 +124,7 @@ class BankierScraper(Scraper):
                 pass
             if type == None or type == 'ohlc':
                 result.append({
-                    'Date' : date.strftime("%m/%d/%Y %H:%M:%S"),
+                    'Date' : date.strftime("%d/%m/%Y %H:%M:%S"),
                     'Close' : data['main'][i][4],
                     'Open' : data['main'][i][1],
                     'High' : data['main'][i][2],
@@ -133,7 +133,7 @@ class BankierScraper(Scraper):
                 })
             elif type == 'area':
                 result.append({
-                    'Date' : date.strftime("%m/%d/%Y %H:%M:%S"),
+                    'Date' : date.strftime("%d/%m/%Y %H:%M:%S"),
                     'Last' : data['main'][i][1],
                     'Volume' : volume
                 })

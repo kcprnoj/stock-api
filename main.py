@@ -17,7 +17,7 @@ async def get_index(name: str = None):
     if name == None:
         return fastapi.Response(status_code=404)
     ret = adapter.get_index(name)
-    if ret == None:
+    if ret == None or ret == []:
         return fastapi.Response(status_code=404)
     else:
         return ret
@@ -27,7 +27,7 @@ async def get_index_companies(name: str = None):
     if name == None:
         return fastapi.Response(status_code=404)
     ret = adapter.get_index_companies(name)
-    if ret == None:
+    if ret == None or ret == []:
         return fastapi.Response(status_code=404)
     else:
         return ret
@@ -43,10 +43,10 @@ async def get_company(name: str = None):
         return ret
 
 @app.get("/historical_data")
-async def get_historical_data(name: str = None, start: str = None, end: str = None):
+async def get_historical_data(name: str = None, start: str = None, end: str = None, interval: str = None):
     if name == None:
         return fastapi.Response(status_code=404)
-    ret = adapter.get_historical(name, start = start, end = end)
+    ret = adapter.get_historical(name, start = start, end = end, interval = interval)
     if ret == None or ret == []:
         return fastapi.Response(status_code=404)
     else:
